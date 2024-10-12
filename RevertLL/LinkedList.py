@@ -99,7 +99,21 @@ class LinkedList:
                 # The last case with border elms needed to replace left_next with right_prev coz ln is r and infinitive cycle
                 right.next = left_next if right_index - left_index > 1 else right_prev
 
-
-    def revert(self):
+    # Merging each pair of elms (without reverting of linking direction) O(n^2)
+    def revert_replacing(self):
         for i in range(self.size // 2):
             self.__merge_mirror(i)
+
+    # Each elm's next link becoming prev elm (reverting the linking direction) O(n)
+    def revert_on_step(self):
+        prev = None
+        cur = self.head
+
+        while cur:
+            next_node = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next_node
+
+        self.tail = self.head
+        self.head = prev
