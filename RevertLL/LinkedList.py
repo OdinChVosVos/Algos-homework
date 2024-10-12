@@ -1,3 +1,5 @@
+from deprecated import deprecated
+
 from Node import Node
 
 
@@ -100,6 +102,7 @@ class LinkedList:
                 right.next = left_next if right_index - left_index > 1 else right_prev
 
     # Merging each pair of elms (without reverting of linking direction) O(n^2)
+    @deprecated
     def revert_replacing(self):
         for i in range(self.size // 2):
             self.__merge_mirror(i)
