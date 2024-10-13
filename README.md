@@ -1,1 +1,1 @@
-#Just a hw personal projects (Alg|Struct)
+# Just a hw personal projects (Alg|Struct)
