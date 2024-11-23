@@ -9,7 +9,7 @@ class Relevance:
 
         self.f = sorted(
             self.f,
-            key=lambda sublist: sum(self.a[i] * sublist[i] for i in range(len(self.a))),
+            key=lambda sublist: self.__get_score(sublist),
             reverse=True
         )
 
@@ -37,8 +37,8 @@ class Relevance:
         # Binary search to find the correct insertion point
         while left <= right:
             mid = (left + right) // 2
-            mid_score = sum(self.a[i] * self.f[mid][i] for i in range(len(self.a)))
-            update_score = sum(self.a[i] * update_object[i] for i in range(len(self.a)))
+            mid_score = self.__get_score(self.f[mid])
+            update_score = self.__get_score(update_object)
 
             if mid_score < update_score:
                 right = mid - 1
@@ -48,6 +48,9 @@ class Relevance:
         # Step 4: Insert the updated object in the right position (at 'left')
         self.f.insert(left, update_object)
 
+
+    def __get_score(self, object):
+        return sum(self.a[i] * object[i] for i in range(len(self.a)))
 
     def __search_by_index(self, index):
         for new_index, el in enumerate(self.f):
